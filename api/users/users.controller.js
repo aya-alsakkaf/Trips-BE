@@ -74,8 +74,16 @@ const getUserById = async (req, res, next) => {
 
 const getUserTrips = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params._id).populate("trips");
+    const user = await User.findById(req.params._id);
     return res.status(200).json(user.trips);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUserProfile = async (req, res, next) => {
+  try {
+    return res.status(200).json(req.user);
   } catch (error) {
     next(error);
   }
@@ -87,4 +95,5 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserTrips,
+  getUserProfile,
 };

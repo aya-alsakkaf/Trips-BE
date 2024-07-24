@@ -6,6 +6,7 @@ const {
   getAllUsers,
   getUserById,
   getUserTrips,
+  getUserProfile
 } = require("./users.controller");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
@@ -22,6 +23,11 @@ userRouter.get(
   "/user/:_id/trips",
   passport.authenticate("jwt", { session: false }),
   getUserTrips
+);
+userRouter.get(
+  "/me",
+  passport.authenticate("jwt", { session: false }),
+  getUserProfile
 );
 
 module.exports = userRouter;
